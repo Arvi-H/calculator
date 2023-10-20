@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 
 class Calculator {
 
@@ -37,10 +39,24 @@ class Calculator {
     .
     etc
      */
-    int fibonacciNumberFinder(int n){
-        return 0;
-    }
+    int fibonacciNumberFinder(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Invalid input. n should be a positive integer.");
+        }
+        if (n == 1 || n == 2) {
+            return 1;
+        }
 
+        int fib1 = 1;
+        int fib2 = 1;
+        int fibonacci = 0;
+        for (int i = 3; i <= n; i++) {
+            fibonacci = fib1 + fib2;
+            fib1 = fib2;
+            fib2 = fibonacci;
+        }
+        return fibonacci;
+    }
 
     /*
     Returns binary value of the given int number
@@ -49,8 +65,8 @@ class Calculator {
     if int a = 10 then this method returns: 1010
     if int a = 16 then this method returns: 10000
      */
-    String intToBinaryNumber(int number){
-        return null;
+    String intToBinaryNumber(int number) {
+        return Integer.toBinaryString(number);
     }
 
     /*
@@ -61,9 +77,19 @@ class Calculator {
 
     if you run this function twice with the same String input, it must return 2 unique String IDs
      */
-    String createUniqueID(String n){
-        return null;
+    private Map<String, Integer> uniqueIdCounter = new HashMap<>();
+
+    String createUniqueID(String n) {
+        if (!uniqueIdCounter.containsKey(n)) {
+            uniqueIdCounter.put(n, 1);
+        } else {
+            int count = uniqueIdCounter.get(n);
+            uniqueIdCounter.put(n, count + 1);
+        }
+        int count = uniqueIdCounter.get(n);
+        return n + "uniqueID" + count;
     }
+
 
 
 }
